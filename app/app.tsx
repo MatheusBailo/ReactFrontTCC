@@ -1,8 +1,8 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useRouter } from 'expo-router';
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, Text, TextInput, TouchableOpacity, View, } from 'react-native';
-import api from '../services/api';
+import { StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import api from '../services/api'; // seu arquivo de API
 
 export default function LoginScreen() {
   const router = useRouter();
@@ -12,29 +12,29 @@ export default function LoginScreen() {
   const [message, setMessage] = useState('');
   const [showPassword, setShowPassword] = useState(false);
 
- useEffect(() => {
-  const checkUser = async () => {
-    const storedUser = await AsyncStorage.getItem('user');
-    if (storedUser) {
-      router.replace('/(tabs)/app'); // Certifique-se das aspas
+  useEffect(() => {
+    const checkUser = async () => {
+      const storedUser = await AsyncStorage.getItem('user');
+      if (storedUser) {
+        router.replace('/(tabs)/app');
+      }
+    };
+    checkUser();
+  }, []);
+
+  const handleLogin = async () => {
+    try {
+      const response = await api.post('/login', { email, password });
+      const user = response.data;
+
+      await AsyncStorage.setItem('user', JSON.stringify(user));
+
+      router.replace('/(tabs)/app');
+    } catch (error: any) {
+      const errMsg = error?.response?.data?.message || 'Verifique os dados';
+      setMessage('Erro no login: ' + errMsg);
     }
   };
-  checkUser();
-}, []);
-
-const handleLogin = async () => {
-  try {
-    const response = await api.post('/login', { email, password });
-    const user = response.data;
-
-    await AsyncStorage.setItem('user', JSON.stringify(user));
-
-    router.replace('/(tabs)/app');
-   } catch (error: any) {
-    const errMsg = error?.response?.data?.message || 'Verifique os dados';
-   setMessage('Erro no login: ' + errMsg);
-  }
-};
 
   return (
     <View style={styles.container}>

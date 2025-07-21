@@ -3,7 +3,7 @@ import { Tabs } from 'expo-router';
 
 export default function TabLayout() {
   return (
-    <Tabs>
+    <Tabs screenOptions={{ tabBarActiveTintColor: 'white', tabBarStyle: { backgroundColor: '#640000' } }}>
       <Tabs.Screen
         name="index"
         options={{
@@ -16,9 +16,9 @@ export default function TabLayout() {
       <Tabs.Screen
         name="list"
         options={{
-          title: 'Lista',
+          title: 'Perfil',
           tabBarIcon: ({ color, size }) => (
-            <Ionicons name="list-outline" size={size} color={color} />
+            <Ionicons name="person-outline" size={size} color={color} />
           ),
         }}
       />
