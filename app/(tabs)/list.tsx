@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react'
 import api from '@/services/api'
 import { Menu } from '../../components/menu'
 
-// Tipo dos dados da API
+
 type Idoso = {
   id: string
   name: string
@@ -19,7 +19,8 @@ export default function List() {
   useEffect(() => {
     async function fetchList() {
       try {
-        const response = await api.get<Idoso[]>('/List')
+        const response = await api.get('/list')
+        console.log(response.data)
         setList(response.data)
       } catch (error) {
         setError('Erro ao carregar listas')
