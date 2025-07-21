@@ -1,0 +1,49 @@
+.fundo {
+  background-color: #f2f2f2;
+  padding: 16px;
+  min-height: 100vh;
+}
+
+.cardIdoso {
+  background-color: white;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.ttCard {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 12px;
+}
+
+.cardPrincipal {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.cardPrincipal ul {
+  list-style: none;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #fafafa;
+}
+
+.cardPrincipal img {
+  max-width: 100px;
+  height: auto;
+  border-radius: 6px;
+  margin-bottom: 8px;
+}
+
+.cardPrincipal button {
+  margin-top: 8px;
+  padding: 8px;
+  background-color: #007AFF;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
