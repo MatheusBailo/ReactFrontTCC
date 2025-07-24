@@ -1,16 +1,6 @@
 import { useRouter } from 'expo-router';
 import React, { useState } from 'react';
-import {
-  KeyboardAvoidingView,
-  Platform,
-  StyleSheet,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  ImageBackground,
-  Image,
-  View,
-} from 'react-native';
+import {KeyboardAvoidingView,Platform,StyleSheet,Text,TextInput,TouchableOpacity,ImageBackground,Image,View,} from 'react-native';
 
 export default function LoginScreen() {
   const [email, setEmail] = useState('');
