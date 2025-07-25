@@ -92,6 +92,7 @@ const styles = StyleSheet.create({
   background: {
     flex: 1,
     backgroundColor: '#fff',
+    
   },
   container: {
     padding: 20,
@@ -125,19 +126,20 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   card: {
-  backgroundColor: '#fff',
-  borderRadius: 30,
-  padding: 20,
-  marginBottom: 25,
-  marginTop: 100,
-  width: '100%',
-  alignItems: 'center',
-  shadowColor: '#000', 
-  shadowOffset: { width: 0, height: 4 },
-  shadowOpacity: 0.2,
-  shadowRadius: 6,
-  elevation: 6, 
-},
+    backgroundColor: 	'rgba(249, 244, 227, 0.4)', 
+    borderRadius: 30,
+    padding: 20,
+    marginBottom: 25,
+    marginTop: 100,
+    width: '100%',
+    alignItems: 'center',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.2,
+    shadowRadius: 6,
+    elevation: 6,
+  },
+  
 
   foto: {
     width: 130,

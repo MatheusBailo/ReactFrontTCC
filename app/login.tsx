@@ -10,13 +10,28 @@ import {
   ImageBackground,
   Image,
   View,
+  ActivityIndicator,
 } from 'react-native';
+import { useFonts } from 'expo-font';
 
 export default function LoginScreen() {
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
   const router = useRouter();
+
+  // Carregar a fonte Cinzel
+  const [fontsLoaded] = useFonts({
+    Cinzel: require('../assets/fonts/Cinzel-VariableFont_wght.ttf'),
+  });
+
+  if (!fontsLoaded) {
+    return (
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+        <ActivityIndicator size="large" color="#800000" />
+      </View>
+    );
+  }
 
   const handleLogin = () => {
     const emailRegex = /^[a-zA-Z0-9._%+-]+@gmail\.com$/;
@@ -53,7 +68,7 @@ export default function LoginScreen() {
             resizeMode="contain"
           />
           <Text style={styles.logoText}>Grand Club</Text>
-          <Text style={styles.logoText}>Blue Roma</Text>
+          <Text style={styles.logoTexts}>Blue Roma</Text>
         </View>
 
         {/* CARD COM SHADOW */}
@@ -130,23 +145,32 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: 'bold',
     lineHeight: 28,
+    fontFamily: 'Cinzel', 
+  },
+  logoTexts: {
+    color: '#800000',
+    fontSize: 35,
+    fontWeight: 'bold',
+    lineHeight: 28,
+    fontFamily: 'Cinzel', 
   },
   card: {
     backgroundColor: 'rgba(255, 255, 255, 0.85)',
     borderRadius: 16,
-    padding: 24,
+    padding: 50,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 3 },
     shadowOpacity: 0.2,
     shadowRadius: 6,
-    elevation: 5, 
+    elevation: 5,
   },
   title: {
-    fontSize: 20,
+    fontSize: 25,
     fontWeight: 'bold',
     color: '#800000',
     textAlign: 'center',
     marginBottom: 20,
+    fontFamily: 'Cinzel',
   },
   input: {
     width: '100%',
@@ -155,24 +179,26 @@ const styles = StyleSheet.create({
     borderRadius: 25,
     paddingHorizontal: 15,
     marginBottom: 18,
-    fontSize: 16,
+    fontSize: 18,
     borderWidth: 0,
     color: '#fff',
   },
   button: {
-    height: 48, 
+    height: 48,
     backgroundColor: '#4C2A30',
-    borderRadius: 25, 
+    borderRadius: 25,
     justifyContent: 'center',
     alignItems: 'center',
     marginTop: 10,
-    paddingHorizontal: 20, 
-  alignSelf: 'center', 
+    paddingHorizontal: 20,
+    alignSelf: 'center',
+    fontFamily: 'Cinzel',
   },
   buttonText: {
     color: '#fff',
     fontWeight: '700',
-    fontSize: 18,
+    fontSize: 21,
+    fontFamily: 'Cinzel',
   },
   errorText: {
     marginTop: 12,
@@ -186,5 +212,6 @@ const styles = StyleSheet.create({
     color: '#800000',
     fontSize: 16,
     fontStyle: 'italic',
+    fontFamily: 'Cinzel', 
   },
 });
