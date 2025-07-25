@@ -6,14 +6,23 @@ export default function TabLayout() {
     <Tabs
       screenOptions={{
         tabBarActiveTintColor: 'white',
-        tabBarStyle: { backgroundColor: '#640000' },
+        tabBarInactiveTintColor: '#ddd',
+        tabBarStyle: {
+          backgroundColor: '#640000',
+          height: 70,             
+          paddingBottom: 10,      
+          paddingTop: 6,          
+        },
+        tabBarLabelStyle: {
+          fontSize: 12,           
+        },
       }}
     >
       <Tabs.Screen
         name="index"
         options={{
           title: 'Início',
-          headerShown: false, 
+          headerShown: false,
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="home-outline" size={size} color={color} />
           ),
@@ -23,7 +32,7 @@ export default function TabLayout() {
         name="list"
         options={{
           title: 'Perfil',
-          headerShown: false, 
+          headerShown: false,
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="person-outline" size={size} color={color} />
           ),

@@ -115,6 +115,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: '#8B0000',
     textAlign: 'center',
+    marginTop: 60,
     marginBottom: 4,
   },
   subtitulo: {
@@ -128,15 +129,14 @@ const styles = StyleSheet.create({
   borderRadius: 30,
   padding: 20,
   marginBottom: 25,
+  marginTop: 100,
   width: '100%',
   alignItems: 'center',
-  borderWidth: 1,
-  borderColor: '#8B0000', 
-  shadowColor: '#8B0000', 
-  shadowOffset: { width: 0, height: 3 },
+  shadowColor: '#000', 
+  shadowOffset: { width: 0, height: 4 },
   shadowOpacity: 0.2,
-  shadowRadius: 4,
-  elevation: 4, 
+  shadowRadius: 6,
+  elevation: 6, 
 },
 
   foto: {

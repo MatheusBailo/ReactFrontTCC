@@ -1,6 +1,16 @@
 import { useRouter } from 'expo-router';
 import React, { useState } from 'react';
-import {KeyboardAvoidingView,Platform,StyleSheet,Text,TextInput,TouchableOpacity,ImageBackground,Image,View,} from 'react-native';
+import {
+  KeyboardAvoidingView,
+  Platform,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  ImageBackground,
+  Image,
+  View,
+} from 'react-native';
 
 export default function LoginScreen() {
   const [email, setEmail] = useState('');
@@ -35,48 +45,57 @@ export default function LoginScreen() {
         style={styles.container}
         behavior={Platform.select({ ios: 'padding', android: undefined })}
       >
-        <View style={styles.logoContainer}>
+        {/* LOGO e textos no topo */}
+        <View style={styles.logoSection}>
           <Image
             source={require('../image/Logo.png')}
             style={styles.logo}
             resizeMode="contain"
           />
+          <Text style={styles.logoText}>Grand Club</Text>
+          <Text style={styles.logoText}>Blue Roma</Text>
         </View>
 
-        <Text style={styles.title}>GRAND CLUB BLUE ROMA</Text>
+        {/* CARD COM SHADOW */}
+        <View style={styles.card}>
+          <Text style={styles.title}>Entre com seu login</Text>
 
-        <TextInput
-          style={styles.input}
-          placeholder="E-mail"
-          placeholderTextColor="#999"
-          value={email}
-          onChangeText={(text) => {
-            setEmail(text);
-            setErrorMessage('');
-          }}
-          keyboardType="email-address"
-          autoCapitalize="none"
-        />
+          <TextInput
+            style={styles.input}
+            placeholder="E-mail"
+            placeholderTextColor="#ccc"
+            value={email}
+            onChangeText={(text) => {
+              setEmail(text);
+              setErrorMessage('');
+            }}
+            keyboardType="email-address"
+            autoCapitalize="none"
+          />
 
-        <TextInput
-          style={styles.input}
-          placeholder="Senha"
-          placeholderTextColor="#999"
-          value={senha}
-          onChangeText={(text) => {
-            setSenha(text);
-            setErrorMessage('');
-          }}
-          secureTextEntry
-        />
+          <TextInput
+            style={styles.input}
+            placeholder="Senha"
+            placeholderTextColor="#ccc"
+            value={senha}
+            onChangeText={(text) => {
+              setSenha(text);
+              setErrorMessage('');
+            }}
+            secureTextEntry
+          />
 
-        <TouchableOpacity style={styles.button} onPress={handleLogin}>
-          <Text style={styles.buttonText}>ENTRAR</Text>
-        </TouchableOpacity>
+          <TouchableOpacity style={styles.button} onPress={handleLogin}>
+            <Text style={styles.buttonText}>ENTRAR</Text>
+          </TouchableOpacity>
 
-        {errorMessage !== '' && (
-          <Text style={styles.errorText}>{errorMessage}</Text>
-        )}
+          {errorMessage !== '' && (
+            <Text style={styles.errorText}>{errorMessage}</Text>
+          )}
+        </View>
+
+        {/* Texto abaixo do card */}
+        <Text style={styles.footerText}>cuidando de quem mais amamos</Text>
       </KeyboardAvoidingView>
     </ImageBackground>
   );
@@ -85,48 +104,70 @@ export default function LoginScreen() {
 const styles = StyleSheet.create({
   background: {
     flex: 1,
+    width: '100%',
+    height: '100%',
+    position: 'relative',
   },
   container: {
     flex: 1,
     justifyContent: 'center',
     paddingHorizontal: 30,
-    backgroundColor: 'rgba(248, 244, 242, 0.8)', // um fundo semi-transparente pra suavizar fundo
+    backgroundColor: 'rgba(248, 244, 242, 0.8)',
+    zIndex: 1,
   },
-  logoContainer: {
+  logoSection: {
     alignItems: 'center',
-    marginBottom: 25,
+    marginBottom: 30,
+    marginTop: 20,
   },
   logo: {
-    width: 130,
-    height: 130,
+    width: 120,
+    height: 120,
+    marginBottom: 10,
+  },
+  logoText: {
+    color: '#800000',
+    fontSize: 24,
+    fontWeight: 'bold',
+    lineHeight: 28,
+  },
+  card: {
+    backgroundColor: 'rgba(255, 255, 255, 0.85)',
+    borderRadius: 16,
+    padding: 24,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 3 },
+    shadowOpacity: 0.2,
+    shadowRadius: 6,
+    elevation: 5, 
   },
   title: {
-    fontSize: 22,
+    fontSize: 20,
     fontWeight: 'bold',
     color: '#800000',
     textAlign: 'center',
-    marginBottom: 30,
+    marginBottom: 20,
   },
   input: {
     width: '100%',
     height: 48,
-    backgroundColor: '#fff',
-    borderRadius: 10,
+    backgroundColor: '#666666',
+    borderRadius: 25,
     paddingHorizontal: 15,
     marginBottom: 18,
     fontSize: 16,
-    borderWidth: 1,
-    borderColor: '#ccc',
-    color: '#000',
+    borderWidth: 0,
+    color: '#fff',
   },
   button: {
-    width: '100%',
-    height: 50,
-    backgroundColor: '#800000',
-    borderRadius: 10,
+    height: 48, 
+    backgroundColor: '#4C2A30',
+    borderRadius: 25, 
     justifyContent: 'center',
     alignItems: 'center',
     marginTop: 10,
+    paddingHorizontal: 20, 
+  alignSelf: 'center', 
   },
   buttonText: {
     color: '#fff',
@@ -138,5 +179,12 @@ const styles = StyleSheet.create({
     color: 'red',
     fontSize: 14,
     textAlign: 'center',
+  },
+  footerText: {
+    marginTop: 20,
+    textAlign: 'center',
+    color: '#800000',
+    fontSize: 16,
+    fontStyle: 'italic',
   },
 });
