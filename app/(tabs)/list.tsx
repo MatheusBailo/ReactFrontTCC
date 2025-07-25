@@ -1,120 +1,206 @@
-/* eslint-disable react-hooks/rules-of-hooks */
-import { useEffect, useState } from 'react'
-import api from '@/services/api'
-import { Menu } from '../../components/menu'
+
+import React, { useEffect, useState } from 'react';
+import {View,Text,StyleSheet,Image,ScrollView,ImageBackground,TouchableOpacity,} from 'react-native';
+import api from '@/services/api';
+
+
+const fundoLogo = require('../../image/fundoLogo.png');
+const logo = require('../../image/Logo.png');
 
 type Idoso = {
-  id: number
-  name: string
-  bornAge: string
-  image: string
-  roomNumber: number
-  caregiverName: string
-  especialConditions: string
-}
+  id: number;
+  name: string;
+  bornAge: string;
+  image: string;
+  roomNumber: number;
+  caregiverName: string;
+  especialConditions: string;
+};
+
 
 export default function List() {
-  const [list, setList] = useState<Idoso[]>([])
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState('')
+  const [list, setList] = useState<Idoso[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
 
   useEffect(() => {
     async function fetchList() {
       try {
-        const response = await api.get('/list')
-        setList(response.data)
+        const response = await api.get('/list');
+        setList(response.data);
       } catch (error) {
-        setError('Erro ao carregar listas')
-        console.error(error)
+        setError('Erro ao carregar listas');
+        console.error(error);
       } finally {
-        setLoading(false)
+        setLoading(false);
       }
     }
-    fetchList()
-  }, [])
 
-  if (loading) return <p style={{ textAlign: 'center' }}>Carregando listas...</p>
-  if (error) return <p style={{ color: 'red', textAlign: 'center' }}>{error}</p>
+    fetchList();
+  }, []);
+
+  if (loading) return <Text style={styles.loading}>Carregando...</Text>;
+  if (error) return <Text style={styles.error}>{error}</Text>;
 
   return (
-    <section
-      style={{
-        padding: 20,
-        paddingBottom: 90, // espaço pro menu inferior
-        height: '100vh',
-        display: 'flex',
-        flexDirection: 'column',
-        boxSizing: 'border-box',
-      }}
-    >
-      {/* Removido o "Perfil" do topo */}
-      <Menu />
+    <ImageBackground source={fundoLogo} style={styles.background} resizeMode="cover">
+      <ScrollView contentContainerStyle={styles.container}>
+        
 
-      <h2 style={{ fontSize: 24, marginBottom: 10, textAlign: 'center' }}>
-        Lista de Idosos
-      </h2>
+        <Text style={styles.titulo}>ÁREA DOS IDOSOS</Text>
+        <Text style={styles.subtitulo}>veja as informações sobre seu idoso cadastrado</Text>
 
-      <div style={{ flex: 1, overflowY: 'auto', paddingRight: 8 }}>
-        <ol style={{ padding: 0 }}>
-          {list.map((item) => (
-            <ul
-              key={item.id}
-              style={{
-                border: '1px solid #ccc',
-                padding: '16px',
-                borderRadius: '10px',
-                marginBottom: '12px',
-                listStyle: 'none',
-                backgroundColor: '#fff',
-              }}
-            >
-              <img
-                src={item.image}
-                alt={`Foto de ${item.name}`}
-                style={{
-                  width: 100,
-                  height: 100,
-                  borderRadius: '50%',
-                  objectFit: 'cover',
-                  marginBottom: 10,
-                }}
-              />
-              <p><strong>Nome:</strong> {item.name}</p>
-              <p><strong>Idade:</strong> {item.bornAge}</p>
-              <p><strong>Quarto:</strong> {item.roomNumber}</p>
-              <p><strong>Cuidador:</strong> {item.caregiverName}</p>
-              <p><strong>Condições Especiais:</strong> {item.especialConditions}</p>
-              <div style={{ marginTop: 10 }}>
-                <button
-                  style={{
-                    marginRight: 10,
-                    padding: '6px 12px',
-                    borderRadius: 6,
-                    border: 'none',
-                    backgroundColor: '#007bff',
-                    color: '#fff',
-                    cursor: 'pointer',
-                  }}
-                >
-                  👤 {item.caregiverName}
-                </button>
-                <button
-                  style={{
-                    padding: '6px 12px',
-                    borderRadius: 6,
-                    border: 'none',
-                    backgroundColor: '#28a745',
-                    color: '#fff',
-                    cursor: 'pointer',
-                  }}
-                >
-                  Visualizar Rotina
-                </button>
-              </div>
-            </ul>
-          ))}
-        </ol>
-      </div>
-    </section>
-  )
+        {list.map((item) => (
+          <View key={item.id} style={styles.card}>
+            <Image
+              source={{ uri: item.image }}
+              style={styles.foto}
+              resizeMode="cover"
+            />
+
+            <View style={styles.infoBloco}>
+              <Text style={styles.infoNegrito}>{item.name}</Text>
+            </View>
+
+            <View style={styles.infoBloco}>
+              <Text style={styles.infoNormal}>{item.bornAge}</Text>
+            </View>
+
+            <View style={styles.infoBloco}>
+              <Text style={styles.infoNormal}>Quarto - {item.roomNumber}</Text>
+            </View>
+
+            <View style={styles.especificacoes}>
+              <Text style={styles.especificacoesTitulo}>ESPECIFICAÇÕES:</Text>
+              <Text style={styles.especificacoesTexto}>{item.especialConditions}</Text>
+            </View>
+
+            <TouchableOpacity style={styles.botao}>
+              <Text style={styles.botaoTexto}>Visualizar lista de rotina</Text>
+            </TouchableOpacity>
+
+            <Text style={styles.cuidadorTitulo}>Cuidador(a) responsável:</Text>
+            <Text style={styles.cuidadorNome}>{item.caregiverName}</Text>
+          </View>
+        ))}
+      </ScrollView>
+    </ImageBackground>
+  );
 }
+
+const styles = StyleSheet.create({
+  background: {
+    flex: 1,
+    backgroundColor: '#fff',
+  },
+  container: {
+    padding: 20,
+    paddingBottom: 100,
+    alignItems: 'center',
+  },
+  loading: {
+    textAlign: 'center',
+    marginTop: 40,
+    fontSize: 18,
+  },
+  error: {
+    textAlign: 'center',
+    marginTop: 40,
+    fontSize: 18,
+    color: 'red',
+  },
+  
+  titulo: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: '#8B0000',
+    textAlign: 'center',
+    marginBottom: 4,
+  },
+  subtitulo: {
+    fontSize: 16,
+    color: '#8B0000',
+    textAlign: 'center',
+    marginBottom: 20,
+  },
+  card: {
+  backgroundColor: '#fff',
+  borderRadius: 30,
+  padding: 20,
+  marginBottom: 25,
+  width: '100%',
+  alignItems: 'center',
+  borderWidth: 1,
+  borderColor: '#8B0000', 
+  shadowColor: '#8B0000', 
+  shadowOffset: { width: 0, height: 3 },
+  shadowOpacity: 0.2,
+  shadowRadius: 4,
+  elevation: 4, 
+},
+
+  foto: {
+    width: 130,
+    height: 130,
+    borderRadius: 65,
+    marginBottom: 10,
+  },
+  infoBloco: {
+    backgroundColor: '#5E5A5A',
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 10,
+    width: '100%',
+    alignItems: 'center',
+    marginBottom: 5,
+  },
+  infoNegrito: {
+    color: '#fff',
+    fontWeight: 'bold',
+    fontSize: 16,
+  },
+  infoNormal: {
+    color: '#fff',
+    fontSize: 15,
+  },
+  especificacoes: {
+    backgroundColor: '#B0B0B0',
+    padding: 15,
+    borderRadius: 10,
+    width: '100%',
+    marginTop: 10,
+    marginBottom: 10,
+  },
+  especificacoesTitulo: {
+    color: '#8B0000',
+    fontWeight: 'bold',
+    marginBottom: 4,
+    fontSize: 16,
+  },
+  especificacoesTexto: {
+    color: '#fff',
+    fontSize: 15,
+  },
+  botao: {
+    backgroundColor: '#8B0000',
+    paddingVertical: 12,
+    paddingHorizontal: 20,
+    borderRadius: 10,
+    marginTop: 10,
+  },
+  botaoTexto: {
+    color: '#fff',
+    fontSize: 16,
+    fontStyle: 'italic',
+  },
+  cuidadorTitulo: {
+    fontSize: 16,
+    color: '#8B0000',
+    fontWeight: 'bold',
+    marginTop: 12,
+  },
+  cuidadorNome: {
+    fontSize: 16,
+    marginBottom: 5,
+  },
+});
